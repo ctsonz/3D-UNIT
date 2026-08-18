@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ThienSon — 3D Shapes</title>
+<title>3D UNIT</title>
+<link rel="icon" type="image/png" href="short_logo.png">
 <meta name="description" content="Bộ sưu tập object 3D miễn phí của ThienSon. Di chuột để xoay, giữ để phóng to, tải ảnh về.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +14,7 @@
     --bg: #0a0a0b;
     --cell: #141416;
     --yellow: #FFC700;
-    --text: #F3F1E7;
+    --text: #CFCFCF;
     --muted: #8f8d86;
     --maxw: 1080px;
   }
@@ -37,29 +38,32 @@
   }
 
   /* ---------- HEADER ---------- */
+  header{
+    border-bottom: 1px solid rgba(255,255,255,0.14);
+  }
   header .wrap{
     display:flex;
     align-items: center;
-    padding-top: 28px;
+    padding-top: 20px;
     padding-bottom: 20px;
   }
   .logo{
     font-family: 'Archivo Black', sans-serif;
-    font-size: 16px;
+    font-size: 13px;
     letter-spacing: 0.01em;
     text-decoration: none;
     color: var(--text);
   }
   .logo span{ color: var(--yellow); }
 
-  /* ---------- HERO LOGO (placeholder for user's PNG logo) ---------- */
-  .hero-logo-wrap{
-    padding: 30px 0 46px;
-    display:flex;
-    align-items:center;
+  /* ---------- HERO (logo image + credit + caption, like the reference design) ---------- */
+  .hero{
+    padding: 40px 0 46px;
+  }
+  .hero-row{
+    position: relative;
   }
   .hero-logo{
-    max-width: 420px;
     width: 100%;
     height: auto;
     display: block;
@@ -71,8 +75,7 @@
     align-items: flex-start;
     gap: 8px;
     width: 100%;
-    max-width: 420px;
-    height: 130px;
+    height: 160px;
     border: 1px dashed rgba(255,199,0,0.35);
     border-radius: 10px;
     padding: 0 22px;
@@ -88,6 +91,31 @@
     font-size: 11px;
     letter-spacing: 0.02em;
     color: var(--muted);
+  }
+  .hero-bottom-row{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 18px;
+    gap: 20px;
+  }
+  .hero-credit{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .hero-caption{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.7;
+    margin: 0;
   }
 
   /* ---------- GRID ---------- */
@@ -188,11 +216,17 @@
 </header>
 
 <div class="wrap">
-  <div class="hero-logo-wrap">
-    <img src="logo.png" alt="ThienSon logo" class="hero-logo" id="heroLogo">
-    <div class="logo-fallback" id="logoFallback" style="display:none;">
-      <span>ThienSon</span>
-      <small>Đặt file logo.png cùng thư mục để hiển thị logo tại đây</small>
+  <div class="hero">
+    <div class="hero-row">
+      <img src="logo.png" alt="ThienSon logo" class="hero-logo" id="heroLogo">
+      <div class="logo-fallback" id="logoFallback" style="display:none;">
+        <span>ThienSon</span>
+        <small>Đặt file logo.png cùng thư mục để hiển thị logo tại đây</small>
+      </div>
+    </div>
+    <div class="hero-bottom-row">
+      <p class="hero-caption">Browse 20+ PNG shapes<br>for your next project. Click to save.</p>
+      <span class="hero-credit">Create by TSONZ</span>
     </div>
   </div>
 </div>
