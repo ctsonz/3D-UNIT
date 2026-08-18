@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thiên Sơn — 3D Shapes</title>
-<meta name="description" content="Bộ sưu tập object 3D miễn phí của Thiên Sơn. Di chuột để xoay, giữ để phóng to, tải ảnh về.">
+<title>ThienSon — 3D Shapes</title>
+<meta name="description" content="Bộ sưu tập object 3D miễn phí của ThienSon. Di chuột để xoay, giữ để phóng to, tải ảnh về.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -15,7 +15,6 @@
     --yellow: #FFC700;
     --text: #F3F1E7;
     --muted: #8f8d86;
-    --line: rgba(255,199,0,0.14);
     --maxw: 1080px;
   }
   *{ box-sizing: border-box; }
@@ -38,15 +37,11 @@
   }
 
   /* ---------- HEADER ---------- */
-  header{
-    border-bottom: 1px solid var(--line);
-  }
   header .wrap{
     display:flex;
-    justify-content: space-between;
     align-items: center;
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-top: 28px;
+    padding-bottom: 20px;
   }
   .logo{
     font-family: 'Archivo Black', sans-serif;
@@ -56,44 +51,43 @@
     color: var(--text);
   }
   .logo span{ color: var(--yellow); }
-  .credit{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .credit a{ color: var(--yellow); text-decoration: none; }
 
-  /* ---------- INTRO ---------- */
-  .intro{
-    padding: 60px 0 38px;
-    max-width: 680px;
+  /* ---------- HERO LOGO (placeholder for user's PNG logo) ---------- */
+  .hero-logo-wrap{
+    padding: 30px 0 46px;
+    display:flex;
+    align-items:center;
   }
-  .intro .eyebrow{
+  .hero-logo{
+    max-width: 420px;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .logo-fallback{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    max-width: 420px;
+    height: 130px;
+    border: 1px dashed rgba(255,199,0,0.35);
+    border-radius: 10px;
+    padding: 0 22px;
+  }
+  .logo-fallback span{
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.02em;
+    color: var(--yellow);
+  }
+  .logo-fallback small{
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--yellow);
-    display:block;
-    margin-bottom: 14px;
-  }
-  .intro h1{
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: clamp(22px, 3.2vw, 30px);
-    line-height: 1.4;
-    margin: 0;
-    color: var(--text);
-  }
-  .intro h1 b{ color: var(--yellow); font-weight: 700; }
-  .intro p{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--muted);
-    margin: 18px 0 0;
     letter-spacing: 0.02em;
+    color: var(--muted);
   }
 
   /* ---------- GRID ---------- */
@@ -116,7 +110,7 @@
     touch-action: none;
     user-select: none;
     box-shadow: 0 10px 24px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.04);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    transition: box-shadow 0.2s ease;
   }
   .cell:hover{
     box-shadow: 0 14px 32px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,199,0,0.25);
@@ -170,7 +164,7 @@
   .dl-btn.done{ background: var(--yellow); color: var(--bg); }
 
   /* ---------- FOOTER ---------- */
-  footer{ border-top: 1px solid var(--line); }
+  footer{ border-top: 1px solid rgba(255,199,0,0.14); }
   footer .wrap{
     padding: 22px 0;
     display:flex;
@@ -189,16 +183,17 @@
 
 <header>
   <div class="wrap">
-    <a href="#" class="logo">THIÊN<span>SƠN</span></a>
-    <span class="credit">Made by <a href="#" target="_blank" rel="noopener">Thiên Sơn</a></span>
+    <a href="#" class="logo">Thien<span>Son</span></a>
   </div>
 </header>
 
 <div class="wrap">
-  <div class="intro">
-    <span class="eyebrow">3D Shapes — v1.1</span>
-    <h1>Bộ sưu tập <b>20 object 3D</b> miễn phí. Di chuột để xoay, giữ chuột để phóng to & xoay chủ động, bấm tải để lưu ảnh.</h1>
-    <p>Placeholder — sẽ thay bằng file .glb/.obj thật sau.</p>
+  <div class="hero-logo-wrap">
+    <img src="logo.png" alt="ThienSon logo" class="hero-logo" id="heroLogo">
+    <div class="logo-fallback" id="logoFallback" style="display:none;">
+      <span>ThienSon</span>
+      <small>Đặt file logo.png cùng thư mục để hiển thị logo tại đây</small>
+    </div>
   </div>
 </div>
 
@@ -210,10 +205,19 @@
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Thiên Sơn</span>
+    <span>© 2026 ThienSon</span>
     <span>Made with <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a></span>
   </div>
 </footer>
+
+<script>
+  // show a placeholder if logo.png hasn't been added yet
+  var heroLogo = document.getElementById('heroLogo');
+  heroLogo.addEventListener('error', function(){
+    heroLogo.style.display = 'none';
+    document.getElementById('logoFallback').style.display = 'flex';
+  });
+</script>
 
 <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
 <script>
@@ -244,6 +248,15 @@
 
   var grid = document.getElementById('grid');
   var cells = [];
+  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+  // ---- single shared WebGL renderer used to draw every object, then copied
+  // onto each cell's own lightweight 2D canvas. Avoids creating 20 separate
+  // WebGL contexts (browsers cap that around ~16, which was corrupting the
+  // first few shapes once the grid grew past that limit).
+  var sharedCanvas = document.createElement('canvas');
+  var sharedRenderer = new THREE.WebGLRenderer({ canvas: sharedCanvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+  sharedRenderer.setPixelRatio(DPR);
 
   var mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
   window.addEventListener('pointermove', function(e){
@@ -256,6 +269,7 @@
     cell.className = 'cell';
 
     var canvas = document.createElement('canvas');
+    var ctx2d = canvas.getContext('2d');
     cell.appendChild(canvas);
 
     var label = document.createElement('div');
@@ -264,9 +278,6 @@
     cell.appendChild(label);
 
     grid.appendChild(cell);
-
-    var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
@@ -295,8 +306,8 @@
     group.add(edges);
 
     var state = {
-      renderer: renderer, scene: scene, camera: camera, group: group,
-      canvas: canvas, cell: cell,
+      scene: scene, camera: camera, group: group,
+      canvas: canvas, ctx2d: ctx2d, cell: cell,
       idleSpin: Math.random() * Math.PI * 2,
       focusX: 0, focusY: 0,
       inertiaX: 0, inertiaY: 0,
@@ -321,24 +332,26 @@
       if (e.target.closest('.dl-btn')) return;
       startHold(e.clientX, e.clientY);
     });
+
+    // holding + dragging keeps spinning the object even once the cursor
+    // leaves this cell's bounds — it only stops on release, listened on
+    // window so it tracks the cursor anywhere on the page.
     window.addEventListener('pointermove', function(e){
       if (!state.holding) return;
       var dx = e.clientX - state.lastX;
       var dy = e.clientY - state.lastY;
-      // stronger spin while actively dragging on hold
-      state.inertiaY += dx * 0.018;
-      state.inertiaX += dy * 0.018;
+      state.inertiaY += dx * 0.011;
+      state.inertiaX += dy * 0.011;
       state.lastX = e.clientX;
       state.lastY = e.clientY;
     }, { passive: true });
     window.addEventListener('pointerup', endHold);
-    cell.addEventListener('pointerleave', function(){ if (state.holding) endHold(); });
+    window.addEventListener('pointercancel', endHold);
 
     var dlBtn = label.querySelector('.dl-btn');
     dlBtn.addEventListener('pointerdown', function(e){ e.stopPropagation(); });
     dlBtn.addEventListener('click', function(e){
       e.stopPropagation();
-      renderer.render(scene, camera);
       var url = canvas.toDataURL('image/png');
       var a = document.createElement('a');
       a.href = url;
@@ -360,7 +373,8 @@
       var w = s.canvas.clientWidth;
       var h = s.canvas.clientHeight;
       if (w === 0 || h === 0) return;
-      s.renderer.setSize(w, h, false);
+      s.canvas.width = Math.round(w * DPR);
+      s.canvas.height = Math.round(h * DPR);
       s.camera.aspect = w / h;
       s.camera.updateProjectionMatrix();
     });
@@ -376,8 +390,13 @@
     var vh = window.innerHeight;
 
     cells.forEach(function(s){
-      // each object turns toward the cursor based on its own position on screen,
-      // so objects on different sides of the grid rotate in different directions
+      var w = s.canvas.clientWidth;
+      var h = s.canvas.clientHeight;
+      if (w === 0 || h === 0) return;
+
+      // each object turns toward the cursor based on its own position on
+      // screen, so objects on different sides of the grid rotate toward
+      // the same focal point instead of all tilting the same direction
       var rect = s.cell.getBoundingClientRect();
       var cx = rect.left + rect.width / 2;
       var cy = rect.top + rect.height / 2;
@@ -397,7 +416,11 @@
       s.scaleCurrent += (s.scaleTarget - s.scaleCurrent) * 0.12;
       s.group.scale.setScalar(s.scaleCurrent);
 
-      s.renderer.render(s.scene, s.camera);
+      sharedRenderer.setSize(w, h, false);
+      sharedRenderer.render(s.scene, s.camera);
+
+      s.ctx2d.clearRect(0, 0, s.canvas.width, s.canvas.height);
+      s.ctx2d.drawImage(sharedCanvas, 0, 0, s.canvas.width, s.canvas.height);
     });
   }
 
