@@ -8,7 +8,7 @@
 <meta name="description" content="Bộ sưu tập object 3D miễn phí của ThienSon. Di chuột để xoay, giữ để phóng to, tải ảnh về.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg: #0a0a0b;
@@ -39,22 +39,98 @@
 
   /* ---------- HEADER ---------- */
   header{
+    position: sticky;
+    top: 0;
+    z-index: 150;
+    background: var(--bg);
     border-bottom: 1px solid rgba(255,255,255,0.14);
   }
   header .wrap{
     display:flex;
     align-items: center;
+    justify-content: space-between;
     padding-top: 20px;
     padding-bottom: 20px;
   }
   .logo{
     font-family: 'Archivo Black', sans-serif;
-    font-size: 13px;
+    font-size: 17px;
     letter-spacing: 0.01em;
     text-decoration: none;
     color: var(--text);
   }
   .logo span{ color: var(--yellow); }
+
+  /* ---------- MENU BUTTON + FULLSCREEN OVERLAY ---------- */
+  .menu-btn{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 26px;
+    height: 20px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .menu-btn span{
+    display:block;
+    width: 100%;
+    height: 2px;
+    background: var(--yellow);
+    border-radius: 1px;
+  }
+  .menu-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 199, 0, 0.9);
+    z-index: 200;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease;
+  }
+  .menu-overlay.open{
+    opacity: 1;
+    visibility: visible;
+  }
+  .menu-close{
+    position: absolute;
+    top: 22px;
+    right: 32px;
+    width: 34px;
+    height: 34px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333333;
+  }
+  .menu-close svg{ width: 100%; height: 100%; display:block; }
+  .menu-list{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    overflow: hidden;
+  }
+  .menu-list a{
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(24px, 4vw, 40px);
+    letter-spacing: 0.01em;
+    color: #333333;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(140px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .menu-list a.show{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .menu-list a:hover{ opacity: 0.6; }
 
   /* ---------- HERO (logo image + credit + caption, like the reference design) ---------- */
   .hero{
@@ -155,8 +231,8 @@
     left:0; right:0; bottom:0;
     display:flex;
     justify-content: space-between;
-    align-items:center;
-    padding: 10px 12px;
+    align-items: flex-end;
+    padding: 0 14px 0 0;
     background: linear-gradient(to top, rgba(0,0,0,0.78), transparent);
     opacity: 0;
     transform: translateY(6px);
@@ -168,28 +244,60 @@
     transform: translateY(0);
   }
   .shape-name{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.06em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--text);
+    margin-bottom: 11px;
   }
   .dl-btn{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.06em;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
     background: transparent;
-    color: var(--yellow);
-    border: 1px solid var(--yellow);
-    padding: 4px 9px;
-    border-radius: 20px;
+    border: none;
+    padding: 9px 30px 9px 16px;
     cursor: pointer;
     pointer-events: all;
-    transition: background 0.15s ease, color 0.15s ease;
   }
-  .dl-btn:hover{ background: var(--yellow); color: var(--bg); }
-  .dl-btn.done{ background: var(--yellow); color: var(--bg); }
+  .dl-btn::before,
+  .dl-btn::after{
+    content: '';
+    position: absolute;
+    clip-path: polygon(0 0, 100% 0, 82% 50%, 100% 100%, 0 100%);
+  }
+  .dl-btn::before{
+    /* outer layer: always the yellow outline colour */
+    inset: 0;
+    background: var(--yellow);
+    z-index: 0;
+  }
+  .dl-btn::after{
+    /* inner layer: cell-dark by default (creates the outline look), turns yellow on hover/done */
+    inset: 1.5px;
+    background: var(--cell);
+    transition: background 0.15s ease;
+    z-index: 1;
+  }
+  .dl-btn:hover::after,
+  .dl-btn.done::after{
+    background: var(--yellow);
+  }
+  .btn-label{
+    position: relative;
+    z-index: 2;
+    color: var(--yellow);
+    transition: color 0.15s ease;
+  }
+  .dl-btn:hover .btn-label,
+  .dl-btn.done .btn-label{
+    color: #333333;
+  }
 
   /* ---------- FOOTER ---------- */
   footer{ border-top: 1px solid rgba(255,199,0,0.14); }
@@ -212,8 +320,23 @@
 <header>
   <div class="wrap">
     <a href="#" class="logo">Thien<span>Son</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Mở menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+
+<div class="menu-overlay" id="menuOverlay">
+  <button class="menu-close" id="menuClose" aria-label="Đóng menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></svg>
+  </button>
+  <nav class="menu-list">
+    <a href="#">What is this?</a>
+    <a href="#">About me</a>
+    <a href="#">Contact</a>
+    <a href="https://www.behance.net/snthin" target="_blank" rel="noopener">Follow on Behance</a>
+  </nav>
+</div>
 
 <div class="wrap">
   <div class="hero">
@@ -240,7 +363,6 @@
 <footer>
   <div class="wrap">
     <span>© 2026 ThienSon</span>
-    <span>Made with <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a></span>
   </div>
 </footer>
 
@@ -250,6 +372,45 @@
   heroLogo.addEventListener('error', function(){
     heroLogo.style.display = 'none';
     document.getElementById('logoFallback').style.display = 'flex';
+  });
+
+  // fullscreen menu overlay
+  var menuBtn = document.getElementById('menuBtn');
+  var menuClose = document.getElementById('menuClose');
+  var menuOverlay = document.getElementById('menuOverlay');
+  var menuItems = Array.prototype.slice.call(menuOverlay.querySelectorAll('.menu-list a'));
+  var menuTimers = [];
+
+  function clearMenuTimers(){
+    menuTimers.forEach(function(t){ clearTimeout(t); });
+    menuTimers = [];
+  }
+
+  function openMenu(){
+    clearMenuTimers();
+    menuOverlay.classList.add('open');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    menuItems.forEach(function(item, i){
+      var t = setTimeout(function(){ item.classList.add('show'); }, 100 + i * 180);
+      menuTimers.push(t);
+    });
+  }
+  function closeMenu(){
+    clearMenuTimers();
+    menuOverlay.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    menuItems.forEach(function(item){ item.classList.remove('show'); });
+  }
+
+  menuBtn.addEventListener('click', openMenu);
+  menuClose.addEventListener('click', closeMenu);
+  menuOverlay.addEventListener('click', function(e){
+    if (e.target === menuOverlay) closeMenu();
+  });
+  window.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeMenu();
   });
 </script>
 
@@ -308,7 +469,7 @@
 
     var label = document.createElement('div');
     label.className = 'cell-label';
-    label.innerHTML = '<span class="shape-name">' + def.name + '</span><button class="dl-btn" type="button">Tải PNG</button>';
+    label.innerHTML = '<button class="dl-btn" type="button"><span class="btn-label">Tải PNG</span></button><span class="shape-name">' + def.name + '</span>';
     cell.appendChild(label);
 
     grid.appendChild(cell);
@@ -383,6 +544,7 @@
     window.addEventListener('pointercancel', endHold);
 
     var dlBtn = label.querySelector('.dl-btn');
+    var dlLabel = dlBtn.querySelector('.btn-label');
     dlBtn.addEventListener('pointerdown', function(e){ e.stopPropagation(); });
     dlBtn.addEventListener('click', function(e){
       e.stopPropagation();
@@ -393,10 +555,10 @@
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      dlBtn.textContent = 'Đã tải ✓';
+      dlLabel.textContent = 'Đã tải ✓';
       dlBtn.classList.add('done');
       setTimeout(function(){
-        dlBtn.textContent = 'Tải PNG';
+        dlLabel.textContent = 'Tải PNG';
         dlBtn.classList.remove('done');
       }, 1400);
     });
